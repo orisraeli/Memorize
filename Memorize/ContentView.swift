@@ -38,10 +38,13 @@ struct ContentView: View {
 	}
 	
 	var themeSwitchers: some View {
-		HStack(spacing: 25) {
-			themeSwitcher(ThemeManager.halloween, name: "Halloween", symbol: "moon.stars.fill", color: .orange)
-			themeSwitcher(ThemeManager.vehicles, name: "Vehicles", symbol: "car.fill", color: .red)
-			themeSwitcher(ThemeManager.animals, name: "Animals", symbol: "pawprint.fill", color: .green)
+		HStack(alignment: .lastTextBaseline, spacing: 25) {
+			themeSwitcher(ThemeManager.halloween, name: "Halloween",
+						  symbol: "moon.stars.fill", color: .orange)
+			themeSwitcher(ThemeManager.vehicles, name: "Vehicles",
+						  symbol: "car.fill", color: .red)
+			themeSwitcher(ThemeManager.animals, name: "Animals",
+						  symbol: "pawprint.fill", color: .green)
 		}
 		.padding(.top)
 	}
