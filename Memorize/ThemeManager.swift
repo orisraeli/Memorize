@@ -5,7 +5,7 @@
 //  Created by Or Israeli on 25/08/2023.
 //
 
-import Foundation
+import SwiftUI
 
 struct ThemeManager {
 	static let halloween = ["👻", "👻", "🕷️", "🕷️", "🎃", "🎃", "💀", "💀",
@@ -22,6 +22,4 @@ struct ThemeManager {
 						  "🐻", "🐻", "🐙", "🐙", "🐢", "🐢", "🦋", "🦋",
 						"🦄", "🦄", "🐮", "🐮", "🐷", "🐷", "🦖", "🦖"
 	]
-	
-	static let themes = [halloween, vehicles, animals]
 }

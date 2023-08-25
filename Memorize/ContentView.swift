@@ -10,6 +10,7 @@ import SwiftUI
 struct ContentView: View {
 	@State var emojis: [String] = ThemeManager.halloween.shuffled()
 	@State var themeColor = Color.orange
+	@State var pairsCount = 10
 	
 	var body: some View {
 		VStack {
@@ -51,7 +52,11 @@ struct ContentView: View {
 	
 	func themeSwitcher(_ theme: [String], name: String, symbol: String, color: Color) -> some View {
 		Button {
-			emojis = theme.shuffled()
+			var deck = theme
+			pairsCount = Int.random(in: 1...(deck.count / 2))
+			deck.removeLast(deck.count - (pairsCount * 2))
+			
+			emojis = deck.shuffled()
 			themeColor = color
 		} label: {
 			VStack {
