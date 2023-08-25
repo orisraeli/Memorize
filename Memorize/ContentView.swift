@@ -8,63 +8,63 @@
 import SwiftUI
 
 struct ContentView: View {
-	let emojis: [String] = ["👻", "🕷️", "🎃", "💀", "😈", "🕸️", "🧙‍♀️", "🙀", "👹", "😱", "☠️", "🍭"]
-	@State var cardCount = 4
+	@State var emojis: [String] = ThemeManager.halloween.shuffled()
+	@State var themeColor = Color.orange
 	
 	var body: some View {
 		VStack {
+			Text("Memorize!")
+				.font(.largeTitle)
+			
 			ScrollView {
 				cards
+					.foregroundColor(themeColor)
 			}
+			
 			Spacer()
-			cardCountAdjusters
+			
+			themeSwitchers
 		}
 		.padding()
-		
 	}
 	
 	var cards: some View {
-		LazyVGrid(columns: [GridItem(.adaptive(minimum: 120))]) {
-			ForEach(0..<cardCount, id: \.self) { index in
+		LazyVGrid(columns: [GridItem(.adaptive(minimum: 70))]) {
+			ForEach(0..<emojis.count, id: \.self) { index in
 				CardView(content: emojis[index])
 					.aspectRatio(2/3, contentMode: .fit)
 			}
 		}
-		.foregroundColor(.orange)
 	}
 	
-	func cardCountAdjuster(by offset: Int, symbol: String) -> some View {
+	var themeSwitchers: some View {
+		HStack(spacing: 25) {
+			themeSwitcher(ThemeManager.halloween, name: "Halloween", symbol: "moon.stars.fill", color: .orange)
+			themeSwitcher(ThemeManager.vehicles, name: "Vehicles", symbol: "car.fill", color: .red)
+			themeSwitcher(ThemeManager.animals, name: "Animals", symbol: "pawprint.fill", color: .green)
+		}
+		.padding(.top)
+	}
+	
+	func themeSwitcher(_ theme: [String], name: String, symbol: String, color: Color) -> some View {
 		Button {
-			cardCount += offset
+			emojis = theme.shuffled()
+			themeColor = color
 		} label: {
-			Image(systemName: symbol)
+			VStack {
+				Image(systemName: symbol)
+					.imageScale(.large)
+				Text(name)
+					.font(.subheadline)
+			}
 		}
-		.disabled(cardCount + offset < 1 || cardCount + offset > emojis.count)
-	}
-	
-	var cardRemover: some View {
-		cardCountAdjuster(by: -1, symbol: "rectangle.stack.fill.badge.minus")
-	}
-	
-	var cardAdder: some View {
-		cardCountAdjuster(by: +1, symbol: "rectangle.stack.fill.badge.plus")
-	}
-	
-	var cardCountAdjusters: some View {
-		HStack {
-			cardRemover
-			Spacer()
-			cardAdder
-		}
-		.imageScale(.large)
-		.font(.largeTitle)
 	}
 }
 
 struct CardView: View {
 	let content: String
 	
-	@State var isFaceUp = true
+	@State var isFaceUp = false
 	
 	var body: some View {
 		ZStack {
