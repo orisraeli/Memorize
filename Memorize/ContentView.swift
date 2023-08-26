@@ -15,7 +15,7 @@ struct ContentView: View {
 	var body: some View {
 		VStack {
 			Text("Memorize!")
-				.font(.largeTitle)
+				.font(.largeTitle.bold())
 			
 			ScrollView {
 				cards
