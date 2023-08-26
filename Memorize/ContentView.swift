@@ -47,13 +47,14 @@ struct ContentView: View {
 			themeSwitcher(ThemeManager.animals, name: "Animals",
 						  symbol: "pawprint.fill", color: .green)
 		}
+		.tint(.primary)
 		.padding(.top)
 	}
 	
 	func themeSwitcher(_ theme: [String], name: String, symbol: String, color: Color) -> some View {
 		Button {
 			var deck = theme
-			pairsCount = Int.random(in: 1...(deck.count / 2))
+			pairsCount = Int.random(in: 4...(deck.count / 2))
 			deck.removeLast(deck.count - (pairsCount * 2))
 			
 			emojis = deck.shuffled()
